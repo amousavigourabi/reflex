@@ -32,7 +32,7 @@ class Unsafer {
   }
 
   /**
-   * Gets the offset of a field with respect to th
+   * Gets the memory location of a {@link Field} as its offset.
    *
    * @see sun.misc.Unsafe#objectFieldOffset(Field)
    */
