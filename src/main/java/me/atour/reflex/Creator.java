@@ -16,8 +16,8 @@ public class Creator {
    * Instantiates a class instance.
    *
    * @param clazz the {@link Class} for which to create the instance
-   * @return the created instance
    * @param <T> type parameter for the class type
+   * @return the created instance
    * @throws InstantiationException when the class cannot be instantiated
    */
   @NonNull public <T> T instantiate(@NonNull Class<T> clazz) throws InstantiationException {

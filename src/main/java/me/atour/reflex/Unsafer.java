@@ -23,6 +23,8 @@ class Unsafer {
   }
 
   /**
+   * Instantiates a class without running the constructor.
+   *
    * @see sun.misc.Unsafe#allocateInstance(Class)
    */
   public <T> T allocateInstance(Class<T> clazz) throws InstantiationException {
