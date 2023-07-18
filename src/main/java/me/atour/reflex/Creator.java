@@ -34,7 +34,11 @@ public class Creator {
    */
   public void setField(@NonNull Object instance, @NonNull Field field, Object value) {
     long offset = unsafe.objectFieldOffset(field);
-    unsafe.putObject(instance, offset, value);
+    if (field.getType().isPrimitive()) {
+      unsafe.putPrimitive(instance, offset, value, field.getType());
+    } else {
+      unsafe.putObject(instance, offset, value);
+    }
   }
 
   /**
@@ -43,9 +47,10 @@ public class Creator {
    * @param instance the instance to modify
    * @param field the field to modify, represented as a {@link String}
    * @param value the value to set the field to
+   * @param <T> type parameter for the instance type
    * @throws NoSuchFieldException when the given field representation does not exist
    */
-  public void setField(@NonNull Object instance, @NonNull String field, Object value) throws NoSuchFieldException {
+  public <T> void setField(@NonNull T instance, @NonNull String field, Object value) throws NoSuchFieldException {
     setField(instance, instance.getClass().getDeclaredField(field), value);
   }
 }
