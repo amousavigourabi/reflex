@@ -232,25 +232,6 @@
             </rule>
           </rules>
         </configuration>
-        <executions>
-          <execution>
-            <id>jacoco-prepare-agent</id>
-            <phase>none</phase>
-            <goals>
-              <goal>prepare-agent</goal>
-            </goals>
-            <configuration>
-              <propertyName>argLine</propertyName>
-            </configuration>
-          </execution>
-          <execution>
-            <id>jacoco-check</id>
-            <phase>none</phase>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
     </plugins>
   </build>
