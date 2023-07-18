@@ -30,4 +30,22 @@ class Unsafer {
   public <T> T allocateInstance(Class<T> clazz) throws InstantiationException {
     return (T) unsafe.allocateInstance(clazz);
   }
+
+  /**
+   * Gets the offset of a field with respect to th
+   *
+   * @see sun.misc.Unsafe#objectFieldOffset(Field)
+   */
+  public long objectFieldOffset(Field field) {
+    return unsafe.objectFieldOffset(field);
+  }
+
+  /**
+   * Sets an instance field.
+   *
+   * @see sun.misc.Unsafe#putObject(Object, long, Object)
+   */
+  public void putObject(Object instance, long offset, Object value) {
+    unsafe.putObject(instance, offset, value);
+  }
 }

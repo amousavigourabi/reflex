@@ -1,5 +1,6 @@
 package me.atour.reflex;
 
+import java.lang.reflect.Field;
 import lombok.NonNull;
 
 /**
@@ -22,5 +23,29 @@ public class Creator {
    */
   @NonNull public <T> T instantiate(@NonNull Class<T> clazz) throws InstantiationException {
     return unsafe.allocateInstance(clazz);
+  }
+
+  /**
+   * Sets a field in the given instance.
+   *
+   * @param instance the instance to modify
+   * @param field the {@link Field} to modify
+   * @param value the value to set the field to
+   */
+  public void setField(@NonNull Object instance, @NonNull Field field, Object value) {
+    long offset = unsafe.objectFieldOffset(field);
+    unsafe.putObject(instance, offset, value);
+  }
+
+  /**
+   * Sets a field in the given instance.
+   *
+   * @param instance the instance to modify
+   * @param field the field to modify, represented as a {@link String}
+   * @param value the value to set the field to
+   * @throws NoSuchFieldException when the given field representation does not exist
+   */
+  public void setField(@NonNull Object instance, @NonNull String field, Object value) throws NoSuchFieldException {
+    setField(instance, instance.getClass().getDeclaredField(field), value);
   }
 }
