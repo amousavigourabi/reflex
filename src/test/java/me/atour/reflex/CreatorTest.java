@@ -3,6 +3,8 @@ package me.atour.reflex;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.lang.reflect.Field;
+import java.util.Map;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeAll;
@@ -11,6 +13,7 @@ import org.junit.jupiter.api.Test;
 public class CreatorTest {
 
   @Getter
+  @EqualsAndHashCode
   @RequiredArgsConstructor
   private static class SetClass {
     private final Integer integer;
@@ -70,5 +73,13 @@ public class CreatorTest {
     assertThat(dummy.getInteger()).isEqualTo(1);
     assertThat(dummy.getDoubleValue()).isEqualTo(2.0);
     assertThat(dummy.getCharacter()).isEqualTo('b');
+  }
+
+  @Test
+  void createFromMap() throws NoSuchFieldException, InstantiationException {
+    Map<String, Object> fieldMap = Map.of("integer", 1, "doubleValue", 2.0, "character", 'a');
+    SetClass actual = creator.createFromMap(SetClass.class, fieldMap);
+    SetClass expected = new SetClass(1, 2.0, 'a');
+    assertThat(actual).isEqualTo(expected);
   }
 }
