@@ -42,7 +42,7 @@ public class InspectorTest {
   void inspectStaticInteger() throws ReflectiveOperationException {
     new StaticInspectorPojo(37);
     Field staticField = StaticInspectorPojo.class.getDeclaredField("integer");
-    int actual = inspector.getField(StaticInspectorPojo.class, staticField);
+    int actual = inspector.getField(staticField);
     assertThat(actual).isEqualTo(37);
   }
 
