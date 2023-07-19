@@ -48,10 +48,9 @@ public class Creator {
    * @param instance the instance to modify
    * @param field the field to modify, represented as a {@link String}
    * @param value the value to set the field to
-   * @param <T> type parameter for the instance type
    * @throws NoSuchFieldException when the given field representation does not exist
    */
-  public <T> void setField(@NonNull T instance, @NonNull String field, Object value) throws NoSuchFieldException {
+  public void setField(@NonNull Object instance, @NonNull String field, Object value) throws NoSuchFieldException {
     setField(instance, instance.getClass().getDeclaredField(field), value);
   }
 
