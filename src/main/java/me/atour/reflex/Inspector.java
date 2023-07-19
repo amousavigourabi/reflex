@@ -11,7 +11,7 @@ import lombok.NonNull;
 public class Inspector {
 
   /**
-   * Gets a field value.
+   * Gets a non-static field value.
    *
    * @param instance the instance to get the field value of
    * @param field the field the value of which to read
@@ -24,6 +24,25 @@ public class Inspector {
     MethodHandle handle = lookup.unreflectGetter(field);
     try {
       return (T) handle.invoke(instance);
+    } catch (Throwable e) {
+      throw new ReflectedGetterThrowsException(e);
+    }
+  }
+
+  /**
+   * Gets a static field value.
+   *
+   * @param clazz the {@link Class} to get the static field value of
+   * @param field the field the value of which to read
+   * @param <T> type parameter for the field return type
+   * @return the field value
+   * @throws IllegalAccessException when the field getter cannot be resolved
+   */
+  public <T> T getField(@NonNull Class<?> clazz, @NonNull Field field) throws IllegalAccessException {
+    MethodHandles.Lookup lookup = MethodHandles.privateLookupIn(field.getDeclaringClass(), MethodHandles.lookup());
+    MethodHandle handle = lookup.unreflectGetter(field);
+    try {
+      return (T) handle.invoke();
     } catch (Throwable e) {
       throw new ReflectedGetterThrowsException(e);
     }
