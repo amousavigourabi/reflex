@@ -3,6 +3,7 @@ package me.atour.reflex;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import lombok.NonNull;
 
 /**
@@ -23,6 +24,9 @@ public class Inspector {
     MethodHandles.Lookup lookup = MethodHandles.privateLookupIn(field.getDeclaringClass(), MethodHandles.lookup());
     MethodHandle handle = lookup.unreflectGetter(field);
     try {
+      if (Modifier.isStatic(field.getModifiers())) {
+        return (T) handle.invoke();
+      }
       return (T) handle.invoke(instance);
     } catch (Throwable e) {
       throw new ReflectedGetterThrowsException(e);

@@ -40,9 +40,17 @@ public class InspectorTest {
 
   @Test
   void inspectStaticInteger() throws ReflectiveOperationException {
-    StaticInspectorPojo pojo = new StaticInspectorPojo(37);
+    new StaticInspectorPojo(37);
     Field staticField = StaticInspectorPojo.class.getDeclaredField("integer");
     int actual = inspector.getField(StaticInspectorPojo.class, staticField);
     assertThat(actual).isEqualTo(37);
+  }
+
+  @Test
+  void inspectStaticIntegerFromInstance() throws ReflectiveOperationException {
+    StaticInspectorPojo pojo = new StaticInspectorPojo(-2);
+    Field staticField = StaticInspectorPojo.class.getDeclaredField("integer");
+    int actual = inspector.getField(pojo, staticField);
+    assertThat(actual).isEqualTo(-2);
   }
 }
