@@ -27,7 +27,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <assertj.version>3.27.7</assertj.version>
-    <checkstyle.version>3.3.0</checkstyle.version>
+    <checkstyle.version>3.6.0</checkstyle.version>
     <jacoco.version>0.8.10</jacoco.version>
     <junit.version>6.1.0-M1</junit.version>
     <lombok.version>1.18.42</lombok.version>
